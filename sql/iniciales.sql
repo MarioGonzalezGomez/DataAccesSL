@@ -3,113 +3,156 @@ SET time_zone = '+00:00';
 SET foreign_key_checks = 0;
 SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
-<!-- Estos son los datos de Jose Luis, los adaptaremos a nuestro ejemplo siguiendo esto como base, para  -->
- <!-- añadir unos datos de ejemplo con los que poder probar el funcionamiento del programa -->
+DROP DATABASE IF EXISTS `desarrollo`;
+CREATE DATABASE `desarrollo` ;
+USE `desarrollo`;
 
-
-DROP DATABASE IF EXISTS `blog`;
-CREATE DATABASE `blog` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `blog`;
-
-DROP TABLE IF EXISTS `category`;
-CREATE TABLE `category` (
+DROP TABLE IF EXISTS `departamentos`;
+CREATE TABLE `departamentos` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(60) NOT NULL,
+  `jefeActual` bigint(20) NOT NULL,
+  `presupuesto` decimal (20) NOT NULL,
+  `proyectosTerminados` varchar(255) NOT NULL,
+  `proyectosEnDesarrollo` varchar(255),
+  `presupuestoAnual` decimal (20) NOT NULL,
+  `historicoJefes` varchar(255),
+
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`jefeActual`) REFERENCES programadores(`id`)
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla de Departamentos';
+
+INSERT INTO `departamentos` (`id`, `nombre`, `jefeActual`,`presupuesto`,`proyectosTerminados`,`proyectosEnDesarrollo`,`presupuestoAnual`,`historicoJefes`) VALUES
+(1,	'Finanzas', '103', 250000.50, 'Declaración de la renta;Balance económico; Estudio de mercado;Oportunidades nicho', 'Presupuestos 2022', 145000, '101,102'),
+(2,	'Desarrollo Web', '202', 450000.75, 'Web Santander;Wordpress Prisa', 'Reestructuración Google', 375000, '201'),
+(3,	'Recursos humanos', '301', 125000, 'Jornadas de acogida de nuevos trabajadores;Reestructuración de personal', null, 75000, null),
+(4,	'Aplicaciones Moviles', '402', 500500, 'App Restaurantes;Servicio NH;Transportes Ministerio','App EMT;Organización datos DB;', null, 425000, '401');
+
+
+DROP TABLE IF EXISTS `proyectos`;
+CREATE TABLE `proyectos` (
+  `nombre` varchar(60) NOT NULL,
+  `jefeProyecto` bigint(20) NOT NULL,
+  `presupuesto` decimal (20) NOT NULL,
+  `fechaInicio` date NOT NULL,
+  `fechaFin` date NOT NULL,
+  `tecnologias` varchar(255) NOT NULL,
+  `repositorio` varchar(60) NOT NULL,
+
+  PRIMARY KEY (`nombre`),
+
+   FOREIGN KEY (`repositorio`) REFERENCES `repositorios` (`nombre`),
+   FOREIGN KEY (`jefeProyecto`) REFERENCES `programadores` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla de proyectos';
+
+INSERT INTO `proyectos` (`nombre`, `jefeProyecto`, `fechaInicio`, `fechaFin`, `tecnologias`, `repositorio`) VALUES
+('Declaración de la renta','110',	'2020-10-01',	'2020-10-01',	'Calculadora',	'rep1'),
+('Balance económico', '110',	'2019-10-01',	'2021-11-01',	'Calculadora;Papel',	'rep2'),
+('Estudio de mercado', '110',	'2021-08-01',	'2021-11-01',	'Calculadora;Papel;Sobornos',	'rep3'),
+('Oportunidades nicho', '110',	'2021-09-02',	'2021-11-01',	'Calculadora;Papel;Espionaje',	'rep4'),
+('Presupuestos 2022', '110',	'2021-11-01',	null,	'Fe en Dios;Papel',	'rep5'),
+('Web Santander', '210',	'2021-10-02',	'2021-11-01',	'Java;Python',	'rep6'),
+('Wordpress Prisa', '210',	'2021-10-02',	'2021-11-01',	'Html;css;JavaScript',	'rep7'),
+('Reestructuracion Google', '210',	'2021-10-02',	null,	4,	'rep8'),
+('Jornadas de acogida de nuevos trabajadores', '310',	'2021-10-02',	'2020-10-01',	'Curriculums;Trituradora de papel',	'rep9'),
+('Reestructuración de personal', '310',	'2021-10-02',	'2020-10-01',	'Cartas de despido',	'rep10'),
+('App Restaurantes', '410',	'2021-10-02',	'2020-10-01',	'Java',	'rep11'),
+('Servicio NH', '410',	'2021-10-02',	'2020-10-01', 'Node, TypeScript',	'rep12'),
+('Transportes Ministerio', '410',	'2021-10-02',	'2020-10-01',	'Kobold',	'rep13'),
+('App EMT', '410',	'2021-10-02',	null,	'C;Kobold',	'rep14'),
+('Organización datos DB', '410',	'2021-10-02',	null,	'SQL',	'rep15');
+
+DROP TABLE IF EXISTS `programadores`;
+CREATE TABLE `programadores` (
+  `id` bigint(20) unsigned NOT NULL,
+ `nombre` varchar(60) NOT NULL,
+ `fechaAlta` date NOT NULL,
+ `departamento` bigint(20) NOT NULL,
+ `proyectos` varchar(255) NOT NULL,
+ `commits`  varchar(255),
+ `issues` varchar(255),
+ `tecnologias` varchar(255) NOT NULL,
+ `salario` decimal NOT NULL,
+ `password` varchar(255) NOT NULL,
+
+ PRIMARY KEY (`id`),
+ FOREIGN KEY (`departamento`) REFERENCES `departamentos` (`id`),
+ FOREIGN KEY (`proyectos`) REFERENCES `proyectos` (`nombre`),
+      FOREIGN KEY (`commits`) REFERENCES `commits` (`titulo`),
+  FOREIGN KEY (`issues`) REFERENCES `issues` (`titulo`)
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla de programadores';
+
+INSERT INTO `programadores` (id,nombre,fechaAlta,departamento,proyectos,commits,issues,tecnologias,salario,password) VALUES
+(1,'Mario', '2001-01-01','Aplicaciones Moviles', 'App EMT', 'Primera actualización', null,'Java;Node',2500,'kugbfjhdzbgf'),
+(2,'Andrea', '2002-02-02','Desarrollo Web', 'Reestructuración Google', 'Poniendo Colorinchis', null, 'Csharp;Java;Canvas',2500,'sduat7683r'),
+(3,'Javi', '2003-03-03','Finanzas', 'Presupuestos 2022', 'Haciendo números', null, 'Java;Canvas',3000,'287ytbdsghfs'),
+(4,'Alex', '2004-04-04','Recursos Humanos', 'Jornadas de acogida de nuevos trabajadores', 'Juzgando carne fresca', null, 'Java',1750,'fgt768a3');
+
+
+DROP TABLE IF EXISTS `repositorios`;
+CREATE TABLE `repositorios` (
+  `nombre` varchar(60) NOT NULL,
+  `fechaCreacion` date NOT NULL,
+  `proyecto` varchar(60) NOT NULL,
+  `commits`  varchar(255),
+  `issues` varchar(255),
+
+  PRIMARY KEY (`nombre`),
+
+  FOREIGN KEY (`proyecto`) REFERENCES `proyectos` (`nombre`),
+  FOREIGN KEY (`commits`) REFERENCES `commits` (`titulo`),
+  FOREIGN KEY (`issues`) REFERENCES `issues` (`titulo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla de repositorios';
+
+INSERT INTO `repositorios` (`nombre`,fechaCreacion, proyecto, commits, issues) VALUES
+('MarioRep',	'2021-09-02',	'App EMT',	'Primera actualización',	null),
+('AndreaRep',	'2021-10-02',	'Reestructuración Google',	'Poniendo Colorinchis',	'2021-10-01 16:12:28',	null),
+('JaviRep',	'2021-11-02',	'Presupuestos 2022',	'Haciendo números',	'2021-10-01 16:13:00',	null),
+('AlexRep',	'2021-12-02',	'Jornadas de acogida de nuevos trabajadores',	'Juzgando carne fresca',	null);
+
+
+DROP TABLE IF EXISTS `commits`;
+CREATE TABLE `commits` (
+  `titulo` varchar(255) NOT NULL,
   `texto` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `category_UN` (`texto`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Base de Datos de Categoría';
+  `fecha` date NOT NULL,
+  `repositorio` varchar(60) NOT NULL,
+  `proyecto` varchar(60) NOT NULL,
+  `autor` varchar(60) NOT NULL,
 
-INSERT INTO `category` (`id`, `texto`) VALUES
-(2,	'Dudas'),
-(3,	'Evaluación'),
-(1,	'General'),
-(4,	'Pruebas');
+PRIMARY KEY (`titulo`),
 
-DROP TABLE IF EXISTS `comment`;
-CREATE TABLE `comment` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `texto` text NOT NULL,
-  `fecha_publicacion` datetime NOT NULL,
-  `user_id` bigint(20) unsigned NOT NULL,
-  `post_id` bigint(20) unsigned NOT NULL,
-  `uuid` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `comment_user_FK` (`user_id`),
-  KEY `comment_post_FK` (`post_id`),
-  CONSTRAINT `comment_post_FK` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`),
-  CONSTRAINT `comment_user_FK` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla de comentarios';
+  FOREIGN KEY (`proyecto`) REFERENCES `proyectos` (`nombre`),
+  FOREIGN KEY (`autor`) REFERENCES `programadores` (`nombre`),
+  FOREIGN KEY (`repositorio`) REFERENCES `repositorios` (`nombre`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla de commits';
 
-INSERT INTO `comment` (`id`, `texto`, `fecha_publicacion`, `user_id`, `post_id`, `uuid`) VALUES
-(1,	'Comentario 01',	'2021-10-01 19:26:08',	1,	1,	'7cf47238-234f-11ec-acf4-0242ac120002'),
-(2,	'Comentario 02',	'2021-10-01 19:26:22',	2,	2,	'8141765d-234f-11ec-acf4-0242ac120002'),
-(3,	'Comentario 03',	'2021-10-01 19:26:36',	3,	2,	'8541b571-234f-11ec-acf4-0242ac120002'),
-(4,	'Comentario 04',	'2021-10-02 08:57:27',	1,	3,	'59042b10-234f-11ec-acf4-0242ac120002'),
-(5,	'Comentario 05',	'2021-10-01 19:27:24',	4,	4,	'89c8ad7f-234f-11ec-acf4-0242ac120002'),
-(6,	'Comentario 06',	'2021-10-02 08:57:27',	1,	3,	'8cb836bc-234f-11ec-acf4-0242ac120002'),
-(7,	'Comentario 07',	'2021-10-02 07:10:26',	4,	4,	'd18810bd-234f-11ec-acf4-0242ac120002');
+INSERT INTO `commits` (titulo, texto, fecha, repositorio, proyecto, autor) VALUES
+('Primera actualización',	'texto culaquiera del commit 1','2021-09-02', 'MarioRep', 'App EMT'),
+('Poniendo Colorinchis',	'texto culaquiera del commit 2','2021-09-02', 'AndreaRep','Reestructuración Google'),
+('Haciendo números',	'texto culaquiera del commit 3',    '2021-09-02', 'JaviRep',  'Presupuestos 2022'),
+('Juzgando carne fresca',	'texto culaquiera del commit 4','2021-09-02', 'AlexRep',  'Jornadas de acogida de nuevos trabajadores');
 
-DROP TABLE IF EXISTS `login`;
-CREATE TABLE `login` (
-                         `user_id` bigint(20) unsigned NOT NULL,
-                         `ultimo_acceso` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE current_timestamp(),
-                         `token` varchar(100) NOT NULL,
-                         PRIMARY KEY (`user_id`),
-                         CONSTRAINT `login_user_FK` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla de login';
+DROP TABLE IF EXISTS `issues`;
+CREATE TABLE `issues` (
+  `titulo` varchar(255) NOT NULL,
+  `texto` varchar(255) NOT NULL,
+  `fecha` date NOT NULL,
+  `programadores` varchar(255) NOT NULL,
+  `repositorio` varchar(60) NOT NULL,
+  `proyecto` varchar(60) NOT NULL,
+  `estado`  varchar(30) NOT NULL,
 
+  PRIMARY KEY (`titulo`),
+  FOREIGN KEY (`proyecto`) REFERENCES `proyectos` (`nombre`),
+  FOREIGN KEY (`programadores`) REFERENCES `programadores` (`nombre`),
+  FOREIGN KEY (`repositorio`) REFERENCES `repositorios` (`nombre`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla de issues';
 
-
-
-DROP TABLE IF EXISTS `post`;
-CREATE TABLE `post` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `titulo` varchar(250) NOT NULL,
-  `url` varchar(250) DEFAULT NULL,
-  `contenido` text NOT NULL,
-  `fecha_publicacion` datetime NOT NULL,
-  `user_id` bigint(20) unsigned NOT NULL,
-  `category_id` bigint(20) unsigned NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `post_UN` (`url`),
-  KEY `post_user_FK` (`user_id`),
-  KEY `post_category_FK` (`category_id`),
-  CONSTRAINT `post_category_FK` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `post_user_FK` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla de posts';
-
-INSERT INTO `post` (`id`, `titulo`, `url`, `contenido`, `fecha_publicacion`, `user_id`, `category_id`) VALUES
-(1,	'Post num 1',	'http://post1.com',	'Este es el post num 1',	'2021-10-01 16:12:03',	1,	1),
-(2,	'Posy num 2',	'http://post2.com',	'Este es el post num 2',	'2021-10-01 16:12:28',	2,	2),
-(3,	'Post num 3',	'http://post3.com',	'Este es el post num 3',	'2021-10-01 16:13:00',	3,	3),
-(4,	'Post num 4',	'http://post4.com',	'Esto es el post num 4',	'2021-10-01 16:13:40',	1,	1),
-(5,	'Post num 5',	'http://post5.com',	'Esto es el post num 5',	'2021-10-01 16:14:14',	2,	3);
-
-DROP TABLE IF EXISTS `test`;
-CREATE TABLE `test` (
-  `nombre` varchar(30) DEFAULT NULL,
-  `email` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-INSERT INTO `test` (`nombre`, `email`) VALUES
-('Jose Luis',	'joseluis@docker.com'),
-('Soraya',	'soraya@docker.com'),
-('Victor',	'victor@docker.com');
-
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `password` varchar(100) NOT NULL,
-  `fecha_registro` date NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `user_UN` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla de usuarios';
-
-INSERT INTO `user` (`id`, `nombre`, `email`, `password`, `fecha_registro`) VALUES
-(1,	'Pepe Perez',	'pepe@pepe.es',	'7110eda4d09e062aa5e4a390b0a572ac0d2c0220',	'2021-09-30'),
-(2,	'Ana Anaya',	'ana@anaya.es',	'7110eda4d09e062aa5e4a390b0a572ac0d2c0220',	'2021-09-30'),
-(3,	'Paco Perez',	'paco@perez.es',	'7110eda4d09e062aa5e4a390b0a572ac0d2c0220',	'2021-09-30'),
-(4,	'Son Goku',	'goku@dragonball.es',	'7110eda4d09e062aa5e4a390b0a572ac0d2c0220',	'2021-09-30'),
-(5,	'Chuck Norris',	'chuck@norris.es',	'7110eda4d09e062aa5e4a390b0a572ac0d2c0220',	'2021-10-01');
+INSERT INTO `issues` (titulo, texto, fecha, programadores, repositorio, proyecto, estado) VALUES
+('issue1',	'Muchos issues en el caso 1','2021-09-02'	,	'Mario',	'MarioRep',   'App EMT' , 'pendiente'),
+('issue2',	'Muchos issues en el caso 2','2021-09-02'	,	'Andrea',	'AndreaRep',  'Reestructuración Google' , 'pendiente'),
+('issue3',	'Muchos issues en el caso 3','2021-09-02'	,	'Javi',	    'JaviRep',  	'Presupuestos 2022','pendiente'),
+('issue4',	'Muchos issues en el caso 4','2021-09-02'	,	'Alex',	    'AlexRep',  	'Jornadas de acogida de nuevos trabajadores','terminada');
