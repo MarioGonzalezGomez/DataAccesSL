@@ -4,14 +4,37 @@ import java.sql.Date;
 import java.util.List;
 
 public class Programador {
+    private long id;
     private String name;
-    private Date fecha_alta;
-    private Departamento departamento;
-    private List<Proyecto> proyectos;
-    private List<Issue> issues;
-    private String tecnologias_usadas;
+    private Date fechaAlta;
+    private long departamento;
+    private List<String> proyectos;
+    private List<String> issues;
+    private List<String> commits;
+    private List<String> tecnologiasUsadas;
     private double salario;
-    private String contraseña;
+    private String password;
+
+    public Programador(long id, String name, Date fechaAlta, long departamento, List<String> proyectos, List<String> issues, List<String> commits, List<String> tecnologiasUsadas, double salario, String password) {
+        this.id = id;
+        this.name = name;
+        this.fechaAlta = fechaAlta;
+        this.departamento = departamento;
+        this.proyectos = proyectos;
+        this.issues = issues;
+        this.commits = commits;
+        this.tecnologiasUsadas = tecnologiasUsadas;
+        this.salario = salario;
+        this.password = password;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -21,44 +44,52 @@ public class Programador {
         this.name = name;
     }
 
-    public Date getFecha_alta() {
-        return fecha_alta;
+    public Date getFechaAlta() {
+        return fechaAlta;
     }
 
-    public void setFecha_alta(Date fecha_alta) {
-        this.fecha_alta = fecha_alta;
+    public void setFechaAlta(Date fechaAlta) {
+        this.fechaAlta = fechaAlta;
     }
 
-    public Departamento getDepartamento() {
+    public long getDepartamento() {
         return departamento;
     }
 
-    public void setDepartamento(Departamento departamento) {
+    public void setDepartamento(int departamento) {
         this.departamento = departamento;
     }
 
-    public List<Proyecto> getProyectos() {
+    public List<String> getProyectos() {
         return proyectos;
     }
 
-    public void setProyectos(List<Proyecto> proyectos) {
+    public void setProyectos(List<String> proyectos) {
         this.proyectos = proyectos;
     }
 
-    public List<Issue> getIssues() {
+    public List<String> getIssues() {
         return issues;
     }
 
-    public void setIssues(List<Issue> issues) {
+    public void setIssues(List<String> issues) {
         this.issues = issues;
     }
 
-    public String getTecnologias_usadas() {
-        return tecnologias_usadas;
+    public List<String> getCommits() {
+        return commits;
     }
 
-    public void setTecnologias_usadas(String tecnologias_usadas) {
-        this.tecnologias_usadas = tecnologias_usadas;
+    public void setCommits(List<String> commits) {
+        this.commits = commits;
+    }
+
+    public List<String> getTecnologiasUsadas() {
+        return tecnologiasUsadas;
+    }
+
+    public void setTecnologiasUsadas(List<String> tecnologiasUsadas) {
+        this.tecnologiasUsadas = tecnologiasUsadas;
     }
 
     public double getSalario() {
@@ -69,25 +100,25 @@ public class Programador {
         this.salario = salario;
     }
 
-    public String getContraseña() {
-        return contraseña;
+    public String getPassword() {
+        return password;
     }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
     public String toString() {
         return "Programador{" +
                 "name='" + name + '\'' +
-                ", fecha_alta=" + fecha_alta +
+                ", fecha_alta=" + fechaAlta +
                 ", departamento=" + departamento +
                 ", proyectos=" + proyectos +
                 ", issues=" + issues +
-                ", tecnologias_usadas='" + tecnologias_usadas + '\'' +
+                ", tecnologias_usadas='" + tecnologiasUsadas + '\'' +
                 ", salario=" + salario +
-                ", contraseña='" + contraseña + '\'' +
+                ", contraseña='" + password + '\'' +
                 '}';
     }
 }

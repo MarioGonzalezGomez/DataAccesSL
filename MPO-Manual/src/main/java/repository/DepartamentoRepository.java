@@ -14,7 +14,7 @@ public class DepartamentoRepository implements CrudRepository<Departamento, Long
         String query = "SELECT *  FROM departamento";
         DataBaseController db = DataBaseController.getInstance();
         db.open();
-        ResultSet result = db.select(query).orElseThrow(()-> new SQLException("Error DepartamentoRepository al consultar registros de Departamentos"));
+        ResultSet result = db.select(query).orElseThrow(() -> new SQLException("Error DepartamentoRepository al consultar registros de Departamentos"));
         ArrayList<Departamento> list = new ArrayList<Departamento>();
         while (result.next()) {
             list.add(
@@ -64,12 +64,12 @@ public class DepartamentoRepository implements CrudRepository<Departamento, Long
         String query = "INSERT INTO departamento VALUES (null, ?, ?, ?, ?, ?, ?)";
         DataBaseController db = DataBaseController.getInstance();
         db.open();
-        ResultSet res = db.insert(query, departamento.getId(), departamento.getNombre(), departamento.getId_jefeActual(),
-                departamento.getPresupuesto(), departamento.getProyectos_terminados(),
-               departamento.getGetProyectos_desarrollo(), departamento.getPresupuesto_anual(), departamento.getHistorico_jefes()).orElseThrow(() -> new SQLException("Error DepartamentoRepository al insertar Departamento"));
+        ResultSet result = db.insert(query, departamento.getId(), departamento.getNombre(), departamento.getIdJefeActual(),
+                departamento.getPresupuesto(), departamento.getProyectosTerminados(),
+                departamento.getProyectosDesarrollo(), departamento.getPresupuestoAnual(), departamento.getHistoricoJefes()).orElseThrow(() -> new SQLException("Error DepartamentoRepository al insertar Departamento"));
         // Para obtener su ID
-        if (res.first()) {
-            departamento.setId(res.getInt(1));
+        if (result.first()) {
+            departamento.setId(result.getInt(1));
             // una vez insertado comprobamos que está correcto para devolverlo
             db.close();
             return departamento;
@@ -85,9 +85,9 @@ public class DepartamentoRepository implements CrudRepository<Departamento, Long
 
         DataBaseController db = DataBaseController.getInstance();
         db.open();
-        int res = db.update(query, departamento.getId(), departamento.getNombre(), departamento.getId_jefeActual(),
-                departamento.getPresupuesto(), departamento.getProyectos_terminados(),
-                departamento.getGetProyectos_desarrollo(), departamento.getPresupuesto_anual(), departamento.getHistorico_jefes());
+        int res = db.update(query, departamento.getId(), departamento.getNombre(), departamento.getIdJefeActual(),
+                departamento.getPresupuesto(), departamento.getProyectosTerminados(),
+                departamento.getProyectosDesarrollo(), departamento.getPresupuestoAnual(), departamento.getHistoricoJefes());
         db.close();
         if (res > 0)
             return departamento;

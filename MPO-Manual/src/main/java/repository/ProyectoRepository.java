@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProyectoRepository implements CrudRepository{
+public class ProyectoRepository implements CrudRepository<Proyecto, Long> {
 
 
     @Override
@@ -60,18 +60,19 @@ public class ProyectoRepository implements CrudRepository{
         } else
             throw new SQLException("Error ProyectoRepository no existe proyecto con ID: " + ID);
     }
+
     @Override
-    public Object save(Object o) throws SQLException {
+    public Proyecto save(Proyecto proyecto) throws SQLException {
         return null;
     }
 
     @Override
-    public Object update(Object o) throws SQLException {
+    public Proyecto update(Proyecto proyecto) throws SQLException {
         return null;
     }
 
     @Override
-    public Object delete(Object o) throws SQLException {
+    public Proyecto delete(Proyecto proyecto) throws SQLException {
         return null;
     }
 }
