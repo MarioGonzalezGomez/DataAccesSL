@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Proyecto {
     private Programador jefe_proyecto;
+    private Programador programador; // que no puede ser ni jefe de proyecto ni programador activo del mismo
     private String nombre;
     private double presupuesto;
     private Date fecha_inicio;
@@ -19,6 +20,14 @@ public class Proyecto {
 
     public void setJefe_proyecto(Programador jefe_proyecto) {
         this.jefe_proyecto = jefe_proyecto;
+    }
+
+    public Programador getProgramador() {
+        return programador;
+    }
+
+    public void setProgramador(Programador programador) {
+        this.programador = programador;
     }
 
     public String getNombre() {
@@ -73,6 +82,7 @@ public class Proyecto {
     public String toString() {
         return "Proyecto{" +
                 "jefe_proyecto=" + jefe_proyecto +
+                ", programador=" + programador +
                 ", nombre='" + nombre + '\'' +
                 ", presupuesto=" + presupuesto +
                 ", fecha_inicio=" + fecha_inicio +
