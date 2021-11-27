@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/DataAccesSLAndrea.iml" filepath="$PROJECT_DIR$/DataAccesSLAndrea.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MPO-JPA-Hibernate/MPO-JPA-Hibernate.iml" filepath="$PROJECT_DIR$/MPO-JPA-Hibernate/MPO-JPA-Hibernate.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MPO-Manual/MPO-Manual.iml" filepath="$PROJECT_DIR$/MPO-Manual/MPO-Manual.iml" />
     </modules>
   </component>
 </project>
