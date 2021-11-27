@@ -18,7 +18,7 @@ public abstract class BaseService<T, ID, R extends CrudRepository<T, ID>> {
     }
 
     // Obtiene por ID
-    public T getById(ID id) throws SQLException {
+    public T getById(Long id) throws SQLException {
         return repository.getById(id);
     }
 

@@ -7,8 +7,8 @@ DROP DATABASE IF EXISTS `desarrollo`;
 CREATE DATABASE `desarrollo` ;
 USE `desarrollo`;
 
-DROP TABLE IF EXISTS `departamentos`;
-CREATE TABLE `departamentos` (
+DROP TABLE IF EXISTS `departamento`;
+CREATE TABLE `departamento` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `nombre` varchar(60) NOT NULL,
   `jefeActual` bigint(20) NOT NULL,
@@ -23,15 +23,15 @@ CREATE TABLE `departamentos` (
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla de Departamentos';
 
-INSERT INTO `departamentos` (`id`, `nombre`, `jefeActual`,`presupuesto`,`proyectosTerminados`,`proyectosEnDesarrollo`,`presupuestoAnual`,`historicoJefes`) VALUES
+INSERT INTO `departamento` (`id`, `nombre`, `jefeActual`,`presupuesto`,`proyectoTerminados`,`proyectoEnDesarrollo`,`presupuestoAnual`,`historicoJefes`) VALUES
 (1,	'Finanzas', '103', 250000.50, 'Declaración de la renta;Balance económico; Estudio de mercado;Oportunidades nicho', 'Presupuestos 2022', 145000, '101,102'),
 (2,	'Desarrollo Web', '202', 450000.75, 'Web Santander;Wordpress Prisa', 'Reestructuración Google', 375000, '201'),
 (3,	'Recursos humanos', '301', 125000, 'Jornadas de acogida de nuevos trabajadores;Reestructuración de personal', null, 75000, null),
 (4,	'Aplicaciones Moviles', '402', 500500, 'App Restaurantes;Servicio NH;Transportes Ministerio','App EMT;Organización datos DB;', null, 425000, '401');
 
 
-DROP TABLE IF EXISTS `proyectos`;
-CREATE TABLE `proyectos` (
+DROP TABLE IF EXISTS `proyecto`;
+CREATE TABLE `proyecto` (
   `nombre` varchar(60) NOT NULL,
   `jefeProyecto` bigint(20) NOT NULL,
   `presupuesto` decimal (20) NOT NULL,
@@ -44,9 +44,9 @@ CREATE TABLE `proyectos` (
 
    FOREIGN KEY (`repositorio`) REFERENCES `repositorios` (`nombre`),
    FOREIGN KEY (`jefeProyecto`) REFERENCES `programadores` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla de proyectos';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla de proyecto';
 
-INSERT INTO `proyectos` (`nombre`, `jefeProyecto`, `fechaInicio`, `fechaFin`, `tecnologias`, `repositorio`) VALUES
+INSERT INTO `proyecto` (`nombre`, `jefeProyecto`, `fechaInicio`, `fechaFin`, `tecnologias`, `repositorio`) VALUES
 ('Declaración de la renta','110',	'2020-10-01',	'2020-10-01',	'Calculadora',	'rep1'),
 ('Balance económico', '110',	'2019-10-01',	'2021-11-01',	'Calculadora;Papel',	'rep2'),
 ('Estudio de mercado', '110',	'2021-08-01',	'2021-11-01',	'Calculadora;Papel;Sobornos',	'rep3'),
@@ -69,7 +69,7 @@ CREATE TABLE `programadores` (
  `nombre` varchar(60) NOT NULL,
  `fechaAlta` date NOT NULL,
  `departamento` bigint(20) NOT NULL,
- `proyectos` varchar(255) NOT NULL,
+ `proyecto` varchar(255) NOT NULL,
  `commits`  varchar(255),
  `issues` varchar(255),
  `tecnologias` varchar(255) NOT NULL,
@@ -77,14 +77,14 @@ CREATE TABLE `programadores` (
  `password` varchar(255) NOT NULL,
 
  PRIMARY KEY (`id`),
- FOREIGN KEY (`departamento`) REFERENCES `departamentos` (`id`),
- FOREIGN KEY (`proyectos`) REFERENCES `proyectos` (`nombre`),
+ FOREIGN KEY (`departamento`) REFERENCES `departamento` (`id`),
+ FOREIGN KEY (`proyecto`) REFERENCES `proyecto` (`nombre`),
       FOREIGN KEY (`commits`) REFERENCES `commits` (`titulo`),
   FOREIGN KEY (`issues`) REFERENCES `issues` (`titulo`)
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla de programadores';
 
-INSERT INTO `programadores` (id,nombre,fechaAlta,departamento,proyectos,commits,issues,tecnologias,salario,password) VALUES
+INSERT INTO `programadores` (id,nombre,fechaAlta,departamento,proyecto,commits,issues,tecnologias,salario,password) VALUES
 (1,'Mario', '2001-01-01','Aplicaciones Moviles', 'App EMT', 'Primera actualización', null,'Java;Node',2500,'kugbfjhdzbgf'),
 (2,'Andrea', '2002-02-02','Desarrollo Web', 'Reestructuración Google', 'Poniendo Colorinchis', null, 'Csharp;Java;Canvas',2500,'sduat7683r'),
 (3,'Javi', '2003-03-03','Finanzas', 'Presupuestos 2022', 'Haciendo números', null, 'Java;Canvas',3000,'287ytbdsghfs'),
@@ -101,7 +101,7 @@ CREATE TABLE `repositorios` (
 
   PRIMARY KEY (`nombre`),
 
-  FOREIGN KEY (`proyecto`) REFERENCES `proyectos` (`nombre`),
+  FOREIGN KEY (`proyecto`) REFERENCES `proyecto` (`nombre`),
   FOREIGN KEY (`commits`) REFERENCES `commits` (`titulo`),
   FOREIGN KEY (`issues`) REFERENCES `issues` (`titulo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla de repositorios';
@@ -124,7 +124,7 @@ CREATE TABLE `commits` (
 
 PRIMARY KEY (`titulo`),
 
-  FOREIGN KEY (`proyecto`) REFERENCES `proyectos` (`nombre`),
+  FOREIGN KEY (`proyecto`) REFERENCES `proyecto` (`nombre`),
   FOREIGN KEY (`autor`) REFERENCES `programadores` (`nombre`),
   FOREIGN KEY (`repositorio`) REFERENCES `repositorios` (`nombre`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla de commits';
@@ -146,7 +146,7 @@ CREATE TABLE `issues` (
   `estado`  varchar(30) NOT NULL,
 
   PRIMARY KEY (`titulo`),
-  FOREIGN KEY (`proyecto`) REFERENCES `proyectos` (`nombre`),
+  FOREIGN KEY (`proyecto`) REFERENCES `proyecto` (`nombre`),
   FOREIGN KEY (`programadores`) REFERENCES `programadores` (`nombre`),
   FOREIGN KEY (`repositorio`) REFERENCES `repositorios` (`nombre`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla de issues';
