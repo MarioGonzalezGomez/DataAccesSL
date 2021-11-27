@@ -9,4 +9,4 @@ ENV MYSQL_PASSWORD blog1234
 ENV MYSQL_DATABASE blog
 
 # Copiamos los ficheros sql para que se ejecuten
-COPY ./sql /docker-entrypoint-initdb.d/
+COPY sql /docker-entrypoint-initdb.d/
