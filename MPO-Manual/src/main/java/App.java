@@ -18,6 +18,7 @@ public class App {
             facade.initDataBase();
 
         // Proyectos
+        //Para crear "Proyectos" hay que crear antes los controller.
         facade.Proyectos();
 
         // Programadores
