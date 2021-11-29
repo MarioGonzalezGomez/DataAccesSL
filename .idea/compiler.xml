@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="MPO-Manual" />
+        <module name="MPO-JPA-Hibernate" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="DataAccesSL" target="11" />
+      <module name="MPO-JPA-Hibernate" target="11" />
+      <module name="MPO-Manual" target="11" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
