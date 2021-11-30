@@ -61,10 +61,11 @@ public class DepartamentoRepository implements CrudRepository<Departamento, Long
 
     @Override
     public Departamento save(Departamento departamento) throws SQLException {
-        String query = "INSERT INTO departamento VALUES (null, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO departamento VALUES (null, ?, ?, ?, ?, ?, ?, ?)";
         DataBaseController db = DataBaseController.getInstance();
         db.open();
-        ResultSet result = db.insert(query, departamento.getId(), departamento.getNombre(), departamento.getIdJefeActual(),
+        // departamento.getId(),
+        ResultSet result = db.insert(query, departamento.getNombre(), departamento.getIdJefeActual(),
                 departamento.getPresupuesto(), departamento.getProyectosTerminados(),
                 departamento.getProyectosDesarrollo(), departamento.getPresupuestoAnual(), departamento.getHistoricoJefes()).orElseThrow(() -> new SQLException("Error DepartamentoRepository al insertar Departamento"));
         // Para obtener su ID
@@ -80,14 +81,14 @@ public class DepartamentoRepository implements CrudRepository<Departamento, Long
 
     @Override
     public Departamento update(Departamento departamento) throws SQLException {
-        String query = "UPDATE departamento SET id = ?, nombre = ?, jefeActual = ?, presupuesto = ?,  " +
-                "proyectosTerminados = ?, proyectosEnDesarrollo = ?, presupuestoAnual = ?, historicoJefes = ?  WHERE id = ?";
+        String query = "UPDATE departamento nombre = ?, idJefeActual = ?, presupuesto = ?,  " +
+                "proyectosTerminados = ?, proyectosDesarrollo = ?, presupuestoAnual = ?, historicoJefes = ?  WHERE id = ?";
 
         DataBaseController db = DataBaseController.getInstance();
         db.open();
-        int res = db.update(query, departamento.getId(), departamento.getNombre(), departamento.getIdJefeActual(),
+        int res = db.update(query, departamento.getNombre(), departamento.getIdJefeActual(),
                 departamento.getPresupuesto(), departamento.getProyectosTerminados(),
-                departamento.getProyectosDesarrollo(), departamento.getPresupuestoAnual(), departamento.getHistoricoJefes());
+                departamento.getProyectosDesarrollo(), departamento.getPresupuestoAnual(), departamento.getHistoricoJefes(), departamento.getId());
         db.close();
         if (res > 0)
             return departamento;

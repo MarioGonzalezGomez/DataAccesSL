@@ -4,13 +4,31 @@ import java.sql.Date;
 import java.util.List;
 
 public class Issue {
+    private int id;
     private String titulo;
     private String texto;
     private Date fecha;
-    private List<Programador> programadores;
-    private Proyecto proyecto;
-    private Repositorio repositorio;
+    private List<String> programadores;
+    private int proyecto;
+    private int repositorio;
 
+    public Issue(int id, String titulo, String texto, Date fecha, List<String> programadores, int proyecto, int repositorio) {
+        this.id = id;
+        this.titulo = titulo;
+        this.texto = texto;
+        this.fecha = fecha;
+        this.programadores = programadores;
+        this.proyecto = proyecto;
+        this.repositorio = repositorio;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getTitulo() {
         return titulo;
@@ -36,39 +54,27 @@ public class Issue {
         this.fecha = fecha;
     }
 
-    public List<Programador> getProgramadores() {
+    public List<String> getProgramadores() {
         return programadores;
     }
 
-    public void setProgramadores(List<Programador> programadores) {
+    public void setProgramadores(List<String> programadores) {
         this.programadores = programadores;
     }
 
-    public Proyecto getProyecto() {
+    public int getProyecto() {
         return proyecto;
     }
 
-    public void setProyecto(Proyecto proyecto) {
+    public void setProyecto(int proyecto) {
         this.proyecto = proyecto;
     }
 
-    public Repositorio getRepositorio() {
+    public int getRepositorio() {
         return repositorio;
     }
 
-    public void setRepositorio(Repositorio repositorio) {
+    public void setRepositorio(int repositorio) {
         this.repositorio = repositorio;
-    }
-
-    @Override
-    public String toString() {
-        return "Issue{" +
-                "titulo='" + titulo + '\'' +
-                ", texto='" + texto + '\'' +
-                ", fecha=" + fecha +
-                ", programadores=" + programadores +
-                ", proyecto=" + proyecto +
-                ", repositorio=" + repositorio +
-                '}';
     }
 }

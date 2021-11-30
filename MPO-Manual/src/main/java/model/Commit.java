@@ -2,15 +2,34 @@ package model;
 
 import java.sql.Date;
 
-public class Commits {
+public class Commit {
+    private int id;
     private String titulo;
     private String texto;
     private Date fecha;
-    private Repositorio repositorio;
-    private Proyecto proyecto;
-    private Programador autor;
-    private Issue issue;
+    private int repositorio;
+    private int proyecto;
+    private int autor;
+    private int issue;
 
+    public Commit(int id, String titulo, String texto, Date fecha, int repositorio, int proyecto, int autor, int issue) {
+        this.id = id;
+        this.titulo = titulo;
+        this.texto = texto;
+        this.fecha = fecha;
+        this.repositorio = repositorio;
+        this.proyecto = proyecto;
+        this.autor = autor;
+        this.issue = issue;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getTitulo() {
         return titulo;
@@ -36,41 +55,42 @@ public class Commits {
         this.fecha = fecha;
     }
 
-    public Repositorio getRepositorio() {
+    public int getRepositorio() {
         return repositorio;
     }
 
-    public void setRepositorio(Repositorio repositorio) {
+    public void setRepositorio(int repositorio) {
         this.repositorio = repositorio;
     }
 
-    public Proyecto getProyecto() {
+    public int getProyecto() {
         return proyecto;
     }
 
-    public void setProyecto(Proyecto proyecto) {
+    public void setProyecto(int proyecto) {
         this.proyecto = proyecto;
     }
 
-    public Programador getAutor() {
+    public int getAutor() {
         return autor;
     }
 
-    public void setAutor(Programador autor) {
+    public void setAutor(int autor) {
         this.autor = autor;
     }
 
-    public Issue getIssue() {
+    public int getIssue() {
         return issue;
     }
 
-    public void setIssue(Issue issue) {
+    public void setIssue(int issue) {
         this.issue = issue;
     }
 
     @Override
     public String toString() {
         return "Commits{" +
+                "id=" + id + '\'' +
                 "titulo='" + titulo + '\'' +
                 ", texto='" + texto + '\'' +
                 ", fecha=" + fecha +

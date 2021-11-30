@@ -4,11 +4,20 @@ import java.sql.Date;
 import java.util.List;
 
 public class Repositorio {
+    private int id;
     private String nombre;
-    private Date fecha_creacion;
+    private Date fechaCreacion;
     private Proyecto proyecto;
-    private List<Commits> commits;
-    private List<Issue>issues;
+    private List<Commit> commits;
+    private List<Issue> issues;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getNombre() {
         return nombre;
@@ -18,12 +27,12 @@ public class Repositorio {
         this.nombre = nombre;
     }
 
-    public Date getFecha_creacion() {
-        return fecha_creacion;
+    public Date getFechaCreacion() {
+        return fechaCreacion;
     }
 
-    public void setFecha_creacion(Date fecha_creacion) {
-        this.fecha_creacion = fecha_creacion;
+    public void setFechaCreacion(Date fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
     }
 
     public Proyecto getProyecto() {
@@ -34,11 +43,11 @@ public class Repositorio {
         this.proyecto = proyecto;
     }
 
-    public List<Commits> getCommits() {
+    public List<Commit> getCommits() {
         return commits;
     }
 
-    public void setCommits(List<Commits> commits) {
+    public void setCommits(List<Commit> commits) {
         this.commits = commits;
     }
 
@@ -53,8 +62,9 @@ public class Repositorio {
     @Override
     public String toString() {
         return "Repositorio{" +
+                "id=" + id + '\'' +
                 "nombre='" + nombre + '\'' +
-                ", fecha_creacion=" + fecha_creacion +
+                ", fecha de creacion=" + fechaCreacion +
                 ", proyecto=" + proyecto +
                 ", commits=" + commits +
                 ", issues=" + issues +

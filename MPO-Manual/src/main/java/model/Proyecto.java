@@ -1,21 +1,20 @@
 package model;
 
 import java.sql.Date;
-import java.util.List;
 
 public class Proyecto {
     private int id;
     private String nombre;
-    private int id_jefeProyecto;
+    private int idJefeProyecto;
     private double presupuesto;
     private Date fechaInicio;
     private Date fechaFin;
     private String tecnologias;
-    private String repositorio;
+    private int repositorio;
 
-    public Proyecto(String nombre, int id_jefeProyecto, double presupuesto, Date fechaInicio, Date fechaFin, String tecnologias, String repositorio) {
+    public Proyecto(String nombre, int idJefeProyecto, double presupuesto, Date fechaInicio, Date fechaFin, String tecnologias, int repositorio) {
         this.nombre = nombre;
-        this.id_jefeProyecto = id_jefeProyecto;
+        this.idJefeProyecto = idJefeProyecto;
         this.presupuesto = presupuesto;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
@@ -39,12 +38,12 @@ public class Proyecto {
         this.nombre = nombre;
     }
 
-    public int getId_jefeProyecto() {
-        return id_jefeProyecto;
+    public int getIdJefeProyecto() {
+        return idJefeProyecto;
     }
 
-    public void setId_jefeProyecto(int id_jefeProyecto) {
-        this.id_jefeProyecto = id_jefeProyecto;
+    public void setIdJefeProyecto(int idJefeProyecto) {
+        this.idJefeProyecto = idJefeProyecto;
     }
 
     public double getPresupuesto() {
@@ -71,7 +70,6 @@ public class Proyecto {
         this.fechaFin = fechaFin;
     }
 
-
     public String getTecnologias() {
         return tecnologias;
     }
@@ -80,11 +78,11 @@ public class Proyecto {
         this.tecnologias = tecnologias;
     }
 
-    public String getRepositorio() {
+    public int getRepositorio() {
         return repositorio;
     }
 
-    public void setRepositorio(String repositorio) {
+    public void setRepositorio(int repositorio) {
         this.repositorio = repositorio;
     }
 }

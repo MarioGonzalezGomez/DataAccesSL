@@ -4,10 +4,10 @@ import java.sql.Date;
 import java.util.List;
 
 public class Programador {
-    private long id;
+    private int id;
     private String name;
     private Date fechaAlta;
-    private long departamento;
+    private int departamento;
     private List<String> proyectos;
     private List<String> issues;
     private List<String> commits;
@@ -15,7 +15,7 @@ public class Programador {
     private double salario;
     private String password;
 
-    public Programador(long id, String name, Date fechaAlta, long departamento, List<String> proyectos, List<String> issues, List<String> commits, List<String> tecnologiasUsadas, double salario, String password) {
+    public Programador(int id, String name, Date fechaAlta, int departamento, List<String> proyectos, List<String> issues, List<String> commits, List<String> tecnologiasUsadas, double salario, String password) {
         this.id = id;
         this.name = name;
         this.fechaAlta = fechaAlta;
@@ -28,11 +28,11 @@ public class Programador {
         this.password = password;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -52,7 +52,7 @@ public class Programador {
         this.fechaAlta = fechaAlta;
     }
 
-    public long getDepartamento() {
+    public int getDepartamento() {
         return departamento;
     }
 
