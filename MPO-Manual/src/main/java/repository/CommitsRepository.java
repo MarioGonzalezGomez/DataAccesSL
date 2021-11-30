@@ -2,14 +2,10 @@ package repository;
 
 import database.DataBaseController;
 import model.Commit;
-import model.Issue;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class CommitsRepository implements CrudRepository<Commit, Long> {
     @Override

@@ -1,10 +1,8 @@
 package repository;
 
 import database.DataBaseController;
-import model.Departamento;
 import model.Proyecto;
 
-import javax.swing.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
