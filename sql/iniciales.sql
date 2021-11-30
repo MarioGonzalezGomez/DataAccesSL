@@ -32,6 +32,7 @@ INSERT INTO `departamento` (`id`, `nombre`, `jefeActual`,`presupuesto`,`proyecto
 
 DROP TABLE IF EXISTS `proyecto`;
 CREATE TABLE `proyecto` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `nombre` varchar(60) NOT NULL,
   `jefeProyecto` bigint(20) NOT NULL,
   `presupuesto` decimal (20) NOT NULL,
@@ -65,7 +66,7 @@ INSERT INTO `proyecto` (`nombre`, `jefeProyecto`, `fechaInicio`, `fechaFin`, `te
 
 DROP TABLE IF EXISTS `programadores`;
 CREATE TABLE `programadores` (
-  `id` bigint(20) unsigned NOT NULL,
+ `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
  `nombre` varchar(60) NOT NULL,
  `fechaAlta` date NOT NULL,
  `departamento` bigint(20) NOT NULL,
@@ -93,6 +94,7 @@ INSERT INTO `programadores` (id,nombre,fechaAlta,departamento,proyecto,commits,i
 
 DROP TABLE IF EXISTS `repositorios`;
 CREATE TABLE `repositorios` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `nombre` varchar(60) NOT NULL,
   `fechaCreacion` date NOT NULL,
   `proyecto` varchar(60) NOT NULL,
@@ -115,6 +117,7 @@ INSERT INTO `repositorios` (`nombre`,fechaCreacion, proyecto, commits, issues) V
 
 DROP TABLE IF EXISTS `commits`;
 CREATE TABLE `commits` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `titulo` varchar(255) NOT NULL,
   `texto` varchar(255) NOT NULL,
   `fecha` date NOT NULL,
@@ -137,6 +140,7 @@ INSERT INTO `commits` (titulo, texto, fecha, repositorio, proyecto, autor) VALUE
 
 DROP TABLE IF EXISTS `issues`;
 CREATE TABLE `issues` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `titulo` varchar(255) NOT NULL,
   `texto` varchar(255) NOT NULL,
   `fecha` date NOT NULL,
@@ -156,3 +160,26 @@ INSERT INTO `issues` (titulo, texto, fecha, programadores, repositorio, proyecto
 ('issue2',	'Muchos issues en el caso 2','2021-09-02'	,	'Andrea',	'AndreaRep',  'Reestructuración Google' , 'pendiente'),
 ('issue3',	'Muchos issues en el caso 3','2021-09-02'	,	'Javi',	    'JaviRep',  	'Presupuestos 2022','pendiente'),
 ('issue4',	'Muchos issues en el caso 4','2021-09-02'	,	'Alex',	    'AlexRep',  	'Jornadas de acogida de nuevos trabajadores','terminada');
+
+DROP TABLE IF EXISTS `equiposProyecto`;
+CREATE TABLE equipo
+(
+    `proyecto`    bigint(20) REFERENCES `proyectos` (`id`) MATCH SIMPLE NOT NULL,
+    `programador` bigint(20) REFERENCES `programadores` (`id`) MATCH SIMPLE NOT NULL
+);
+
+
+DROP TABLE IF EXISTS `jefesDepartamento`;
+CREATE TABLE jefedepartamento
+(
+    `departamento` bigint(20) REFERENCES `departamentos` (`id`) MATCH SIMPLE NOT NULL,
+    `programador`  bigint(20) REFERENCES `programadores` (`id`) MATCH SIMPLE NOT NULL
+);
+
+
+DROP TABLE IF EXISTS jefesProyecto;
+CREATE TABLE jefeproyecto
+(
+    `proyecto`    bigint(20) NOT NULL REFERENCES proyectos (`id`) MATCH SIMPLE,
+    idProgramador VARCHAR(36) REFERENCES programadores (`id`) MATCH SIMPLE NOT NULL
+);
