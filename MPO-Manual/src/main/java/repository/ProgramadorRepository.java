@@ -29,10 +29,10 @@ public class ProgramadorRepository implements CrudRepository<Programador, Long> 
                     //Se crea una lista con el contenido de la tabla programadores.
 
                     new Programador(
-                            result.getLong("id"),
+                            result.getInt("id"),
                             result.getString("nombre"),
                             result.getDate("fechaAlta"),
-                            result.getLong("departamento"),
+                            result.getInt("departamento"),
                             proyecto,
                             commits,
                             issues,
@@ -57,10 +57,10 @@ public class ProgramadorRepository implements CrudRepository<Programador, Long> 
             List<String> proyecto = Arrays.stream(result.getString("proyecto").split(";")).collect(Collectors.toList());
             List<String> commits = Arrays.stream(result.getString("commits").split(";")).collect(Collectors.toList());
             List<String> tecnologias = Arrays.stream(result.getString("tecnologias").split(";")).collect(Collectors.toList());
-            Programador programmer = new Programador(result.getLong("id"),
+            Programador programmer = new Programador(result.getInt("id"),
                     result.getString("nombre"),
                     result.getDate("fechaAlta"),
-                    result.getLong("departamento"),
+                    result.getInt("departamento"),
                     proyecto,
                     commits,
                     issues,
@@ -78,7 +78,8 @@ public class ProgramadorRepository implements CrudRepository<Programador, Long> 
         String query = "INSERT INTO programadores VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         DataBaseController db = DataBaseController.getInstance();
         db.open();
-        ResultSet result = db.insert(query, programador.getId(), programador.getName(), programador.getFechaAlta(),
+        // programador.getId(),
+        ResultSet result = db.insert(query, programador.getName(), programador.getFechaAlta(),
                 programador.getDepartamento(), programador.getProyectos(), programador.getCommits(), programador.getIssues(),
                 programador.getTecnologiasUsadas(), programador.getSalario(), programador.getPassword()).orElseThrow(() ->
                 new SQLException("Error ProgramadorRepository al insertar programador"));
@@ -93,14 +94,14 @@ public class ProgramadorRepository implements CrudRepository<Programador, Long> 
 
     @Override
     public Programador update(Programador programador) throws SQLException {
-        String query = "UPDATE programadores SET id = ?, nombre = ?, fechaAlta = ?, departamento = ?,  " +
+        String query = "UPDATE programadores nombre = ?, fechaAlta = ?, departamento = ?,  " +
                 "proyecto = ?, commits = ?, issues = ?, tecnologias = ?, salario = ?, password = ? WHERE id = ?";
 
         DataBaseController db = DataBaseController.getInstance();
         db.open();
-        int res = db.update(query, programador.getId(), programador.getName(), programador.getFechaAlta(),
+        int res = db.update(query, programador.getName(), programador.getFechaAlta(),
                 programador.getDepartamento(), programador.getProyectos(), programador.getCommits(), programador.getIssues(),
-                programador.getTecnologiasUsadas(), programador.getSalario(), programador.getPassword());
+                programador.getTecnologiasUsadas(), programador.getSalario(), programador.getPassword(), programador.getId());
         db.close();
         if (res > 0)
             return programador;
