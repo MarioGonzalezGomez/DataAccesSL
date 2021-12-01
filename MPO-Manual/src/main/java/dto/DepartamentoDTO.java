@@ -14,6 +14,7 @@ import java.util.UUID;
 @Data
 @Builder
 public class DepartamentoDTO {
+//Esta clase ya tiene objetos.
 
     private UUID id;
     private String nombre;
@@ -23,6 +24,7 @@ public class DepartamentoDTO {
     private Set<Proyecto> proyectosDesarrollo;
     private Double presupuestoAnual;
     private Set<Programador> historicoJefes;
+    private UUID idJefe;
 
 
     public static DepartamentoDTO fromJSON(String json) {

@@ -12,6 +12,8 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+//De todos los objetos que hubiera en DTO habría que crear aqui solo su id.
+//Nunca objetos
 public class Departamento {
     private UUID id;
     private String nombre;

@@ -22,6 +22,8 @@ public class ProgramadorDTO {
     private Set<Proyecto> proyectos;
     private Tecnologias tecnologias;
     private Double sueldo;
+    private UUID idDepartamento;
+
 
 
     public static ProgramadorDTO fromJSON(String json) {

@@ -7,6 +7,7 @@ import lombok.Data;
 import java.sql.Date;
 import java.util.UUID;
 
+@Data
 @Builder
 @AllArgsConstructor
 public class Proyecto {

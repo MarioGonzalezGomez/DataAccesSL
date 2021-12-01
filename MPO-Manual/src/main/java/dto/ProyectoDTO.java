@@ -20,6 +20,7 @@ public class ProyectoDTO {
     private Date fecha_inicio;
     private Date fecha_fin;
     private Tecnologias tecnologia;
+    private UUID idJefe;
 
 
     public static ProyectoDTO fromJSON(String json) {
