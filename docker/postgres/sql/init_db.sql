@@ -16,7 +16,7 @@ CREATE TABLE `departamento` (
   `presupuestoAnual` decimal (20) NOT NULL,
 
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`jefeActual`) REFERENCES programadores(`id`)
+  FOREIGN KEY (`jefeActual`) REFERENCES programador(`id`)
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla de Departamentos';
 
@@ -37,7 +37,7 @@ CREATE TABLE `proyecto` (
   `fechaFin` date,
   
   PRIMARY KEY (`nombre`),
-   FOREIGN KEY (`jefeProyecto`) REFERENCES `programadores` (`id`)
+   FOREIGN KEY (`jefeProyecto`) REFERENCES `programador` (`id`)
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla de proyectos';
 
@@ -68,12 +68,11 @@ CREATE TABLE `programador` (
  `password` varchar(255) NOT NULL,
 
  PRIMARY KEY (`id`),
- FOREIGN KEY (`departamento`) REFERENCES `departamento` (`id`),
- FOREIGN KEY (`proyecto`) REFERENCES `proyecto` (`nombre`)
- 
+ FOREIGN KEY (`departamento`) REFERENCES `departamento` (`id`)
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla de programadores';
 
-INSERT INTO `programadores` (`id`,`nombre`,`fechaAlta`,`departamento`,`salario`,`password`) VALUES
+INSERT INTO `programador` (`id`,`nombre`,`fechaAlta`,`departamento`,`salario`,`password`) VALUES
 ('af5ee0c4-eff0-40f0-9eff-e588a51504d7', 'Mario', '2001-01-01','77e07771-35dc-4052-8d15-6f4622a7251f',2500, 'kugbfjhdzbgf'),
 ('638ab226-b150-4e48-90fa-7190b9f47da1', 'Andrea', '2002-02-02','7c0ea8ff-5da2-4991-8495-74814fad9634',2500, 'sduat7683r'),
 ('503e1433-1f98-449c-b602-72ffde821e62', 'Javi', '2003-03-03','e167f3d0-d333-4276-801d-50cfd29179e4',3000, '287ytbdsghfs'),
@@ -115,9 +114,9 @@ INSERT INTO `tecnologia` (`id`, `nombre`) VALUES
 DROP TABLE IF EXISTS `programadores_proyectos`;
 CREATE TABLE `programadores_proyectos`
 (
-    `id` varchar(36) REFERENCES `proyectos` (`id`) MATCH SIMPLE NOT NULL,
-    `proyecto`  varchar(36) REFERENCES `proyectos` (`id`) MATCH SIMPLE NOT NULL,
-    `programador` varchar(36) REFERENCES `programadores` (`id`) MATCH SIMPLE NOT NULL
+    `id` varchar(36) REFERENCES `proyecto` (`id`) MATCH SIMPLE NOT NULL,
+    `proyecto`  varchar(36) REFERENCES `proyecto` (`id`) MATCH SIMPLE NOT NULL,
+    `programador` varchar(36) REFERENCES `programador` (`id`) MATCH SIMPLE NOT NULL
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla de programadores_proyectos';
 
 INSERT INTO `programadores_proyectos` (`id`, `proyecto`,`programador`) VALUES

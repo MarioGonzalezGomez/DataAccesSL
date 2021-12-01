@@ -164,7 +164,7 @@ INSERT INTO `issues` (`id`,`titulo`, `texto`, `fecha`, `programadores`, `reposit
 DROP TABLE IF EXISTS `equiposProyecto`;
 CREATE TABLE equipo
 (
-    `proyecto`    bigint(20) NOT NULL REFERENCES `proyectos` (`id`) MATCH SIMPLE ,
+    `proyecto`    bigint(20) NOT NULL REFERENCES `proyecto` (`id`) MATCH SIMPLE ,
     `programador` bigint(20) NOT NULL REFERENCES `programadores` (`id`) MATCH SIMPLE 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla de equiposProyecto';
 
@@ -176,7 +176,7 @@ CREATE TABLE jefedepartamento
     `programador`  bigint(20) NOT NULL REFERENCES `programadores` (`id`) MATCH SIMPLE 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla de jefesDepartamento';
 
-INSERT INTO `jefesDepartamento` (`departamento`,`programador`) VALUES
+INSERT INTO `jefedepartamento` (`departamento`,`programador`) VALUES
 (1,103),
 (2,202),
 (3,301),
@@ -185,6 +185,6 @@ INSERT INTO `jefesDepartamento` (`departamento`,`programador`) VALUES
 DROP TABLE IF EXISTS jefesProyecto;
 CREATE TABLE jefeproyecto
 (
-    `proyecto`    bigint(20) NOT NULL REFERENCES `proyectos` (`id`) MATCH SIMPLE,
+    `proyecto`    bigint(20) NOT NULL REFERENCES `proyecto` (`id`) MATCH SIMPLE,
   `programador` bigint(20) NOT NULL REFERENCES `programadores` (`id`) MATCH SIMPLE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla de jefesProyecto';
