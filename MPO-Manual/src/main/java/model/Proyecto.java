@@ -13,6 +13,7 @@ public class Proyecto {
     private UUID idProyecto;
     private String nombre;
     private UUID idjefeProyecto;
+    private double presupuesto;
     private Date fechaInicio;
     private Date fechaFin;
 

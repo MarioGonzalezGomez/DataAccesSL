@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class ProyectoRepository implements CrudRepository <Proyecto,String> {
     @Override
@@ -19,13 +20,12 @@ public class ProyectoRepository implements CrudRepository <Proyecto,String> {
         while (result.next()) {
             list.add(
                     new Proyecto(
+                            UUID.fromString(result.getString("id")),
                             result.getString("nombre"),
-                            result.getInt("jefeProyecto"),
+                            UUID.fromString(result.getString("jefeProyecto")),
                             result.getDouble("presupuesto"),
                             result.getDate("fechaInicio"),
-                            result.getDate("fechaFin"),
-                            result.getString("tecnologias"),
-                            result.getString("historicoJefes")
+                            result.getDate("fechaFin")
                     )
             );
         }
@@ -42,13 +42,12 @@ public class ProyectoRepository implements CrudRepository <Proyecto,String> {
         ResultSet result = db.select(query, ID).orElseThrow(() -> new SQLException("Error ProyectoRepository al consultar proyecto con ID " + ID));
         if (result.first()) {
             Proyecto proyecto = new Proyecto(
+                    UUID.fromString(result.getString("id")),
                     result.getString("nombre"),
-                    result.getInt("jefeProyecto"),
+                    UUID.fromString(result.getString("jefeProyecto")),
                     result.getDouble("presupuesto"),
                     result.getDate("fechaInicio"),
-                    result.getDate("fechaFin"),
-                    result.getString("tecnologias"),
-                    result.getString("historicoJefes")
+                    result.getDate("fechaFin")
             );
             db.close();
             return proyecto;
