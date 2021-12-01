@@ -63,8 +63,8 @@ public class ProgramadorRepository implements CrudRepository<Programador, String
         String query = "INSERT INTO programador VALUES (?, ?, ?, ?, ?, ?)";
         DataBaseController db = DataBaseController.getInstance();
         db.open();
-        ResultSet result = db.insert(query, programador.getId(), programador.getNombre(), programador.getFechaAlta(),
-                programador.getContraseña(), programador.getSalario(), programador.getIdDepartamento()).orElseThrow(() ->
+        ResultSet result = db.insert(query, programador.getId().toString(), programador.getNombre(), programador.getFechaAlta(),
+                programador.getContraseña(), programador.getSalario(), programador.getIdDepartamento().toString()).orElseThrow(() ->
                 new SQLException("Error ProgramadorRepository al insertar programador"));
         if (result.first()) {
             programador.setId(UUID.fromString(result.getString(1)));
@@ -83,12 +83,12 @@ public class ProgramadorRepository implements CrudRepository<Programador, String
         DataBaseController db = DataBaseController.getInstance();
         db.open();
         int res = db.update(query, programador.getNombre(), programador.getFechaAlta(),
-                programador.getContraseña(), programador.getSalario(), programador.getIdDepartamento(), programador.getId());
+                programador.getContraseña(), programador.getSalario(), programador.getIdDepartamento().toString(), programador.getId().toString());
         db.close();
         if (res > 0)
             return programador;
         else
-            throw new SQLException("Error ProgramadorRepository al actualizar programador con id: " + programador.getId());
+            throw new SQLException("Error ProgramadorRepository al actualizar programador con id: " + programador.getId().toString());
     }
 
     @Override
@@ -96,12 +96,12 @@ public class ProgramadorRepository implements CrudRepository<Programador, String
         String query = "DELETE FROM programador WHERE id = ?";
         DataBaseController db = DataBaseController.getInstance();
         db.open();
-        int res = db.delete(query, programador.getId());
+        int res = db.delete(query, programador.getId().toString());
         db.close();
         if (res > 0)
             return programador;
         else
-            throw new SQLException("Error ProgramadorRepository al eliminar programador con id: " + programador.getId());
+            throw new SQLException("Error ProgramadorRepository al eliminar programador con id: " + programador.getId().toString());
     }
 }
 

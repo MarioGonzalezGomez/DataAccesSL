@@ -59,7 +59,7 @@ public class DepartamentoRepository implements CrudRepository<Departamento, Stri
         String query = "INSERT INTO departamento VALUES (?, ?, ?, ?, ?)";
         DataBaseController db = DataBaseController.getInstance();
         db.open();
-        ResultSet result = db.insert(query, departamento.getId(), departamento.getNombre(), departamento.getIdJefeDepartamento(),
+        ResultSet result = db.insert(query, departamento.getId().toString(), departamento.getNombre(), departamento.getIdJefeDepartamento().toString(),
                         departamento.getPresupuesto(), departamento.getPresupuestoAnual())
                 .orElseThrow(() -> new SQLException("Error DepartamentoRepository al insertar Departamento"));
         if (result.first()) {
@@ -78,13 +78,13 @@ public class DepartamentoRepository implements CrudRepository<Departamento, Stri
 
         DataBaseController db = DataBaseController.getInstance();
         db.open();
-        int res = db.update(query, departamento.getNombre(), departamento.getIdJefeDepartamento(),
-                departamento.getPresupuesto(), departamento.getPresupuestoAnual(), departamento.getId());
+        int res = db.update(query, departamento.getNombre(), departamento.getIdJefeDepartamento().toString(),
+                departamento.getPresupuesto(), departamento.getPresupuestoAnual(), departamento.getId().toString());
         db.close();
         if (res > 0)
             return departamento;
         else
-            throw new SQLException("Error DepartamentoRepository al actualizar departamento con id: " + departamento.getId());
+            throw new SQLException("Error DepartamentoRepository al actualizar departamento con id: " + departamento.getId().toString());
     }
 
     @Override
@@ -92,11 +92,11 @@ public class DepartamentoRepository implements CrudRepository<Departamento, Stri
         String query = "DELETE FROM departamento WHERE id = ?";
         DataBaseController db = DataBaseController.getInstance();
         db.open();
-        int res = db.delete(query, departamento.getId());
+        int res = db.delete(query, departamento.getId().toString());
         db.close();
         if (res > 0)
             return departamento;
         else
-            throw new SQLException("Error DepartamentoRepository al eliminar departamento con id: " + departamento.getId());
+            throw new SQLException("Error DepartamentoRepository al eliminar departamento con id: " + departamento.getId().toString());
     }
 }

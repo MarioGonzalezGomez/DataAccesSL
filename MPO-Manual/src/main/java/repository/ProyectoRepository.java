@@ -60,7 +60,7 @@ public class ProyectoRepository implements CrudRepository<Proyecto, String> {
         String query = "INSERT INTO proyecto VALUES (?, ?, ?, ?, ?, ?)";
         DataBaseController db = DataBaseController.getInstance();
         db.open();
-        ResultSet result = db.insert(query, proyecto.getIdProyecto(), proyecto.getNombre(), proyecto.getIdjefeProyecto(), proyecto.getPresupuesto()
+        ResultSet result = db.insert(query, proyecto.getIdProyecto().toString(), proyecto.getNombre(), proyecto.getIdjefeProyecto().toString(), proyecto.getPresupuesto()
                 , proyecto.getFechaInicio(), proyecto.getFechaFin()).orElseThrow(() ->
                 new SQLException("Error ProyectoRepository al insertar proyecto"));
         if (result.first()) {
@@ -79,13 +79,13 @@ public class ProyectoRepository implements CrudRepository<Proyecto, String> {
 
         DataBaseController db = DataBaseController.getInstance();
         db.open();
-        int res = db.update(query, proyecto.getNombre(), proyecto.getIdjefeProyecto(), proyecto.getPresupuesto()
-                , proyecto.getFechaInicio(), proyecto.getFechaFin(), proyecto.getIdProyecto());
+        int res = db.update(query, proyecto.getNombre(), proyecto.getIdjefeProyecto().toString(), proyecto.getPresupuesto()
+                , proyecto.getFechaInicio(), proyecto.getFechaFin(), proyecto.getIdProyecto().toString());
         db.close();
         if (res > 0)
             return proyecto;
         else
-            throw new SQLException("Error ProgramadorRepository al actualizar programador con id: " + proyecto.getIdProyecto());
+            throw new SQLException("Error ProgramadorRepository al actualizar programador con id: " + proyecto.getIdProyecto().toString());
     }
 
     @Override
@@ -93,11 +93,11 @@ public class ProyectoRepository implements CrudRepository<Proyecto, String> {
         String query = "DELETE FROM proyecto WHERE id = ?";
         DataBaseController db = DataBaseController.getInstance();
         db.open();
-        int res = db.delete(query, proyecto.getIdProyecto());
+        int res = db.delete(query, proyecto.getIdProyecto().toString());
         db.close();
         if (res > 0)
             return proyecto;
         else
-            throw new SQLException("Error ProgramadorRepository al eliminar programador con id: " + proyecto.getIdProyecto());
+            throw new SQLException("Error ProgramadorRepository al eliminar programador con id: " + proyecto.getIdProyecto().toString());
     }
 }
