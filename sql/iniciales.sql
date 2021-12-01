@@ -114,8 +114,8 @@ INSERT INTO `tecnologia` (`id`, `nombre`) VALUES
 DROP TABLE IF EXISTS `programador_proyecto`;
 CREATE TABLE `programador_proyecto`
 (
-    `id` varchar(36) REFERENCES `proyectos` (`id`) MATCH SIMPLE NOT NULL,
-    `proyecto`  varchar(36) REFERENCES `proyectos` (`id`) MATCH SIMPLE NOT NULL,
+    `id` varchar(36) REFERENCES `proyecto` (`id`) MATCH SIMPLE NOT NULL,
+    `proyecto`  varchar(36) REFERENCES `proyecto` (`id`) MATCH SIMPLE NOT NULL,
     `programador` varchar(36) REFERENCES `programador` (`id`) MATCH SIMPLE NOT NULL
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla de programador_proyecto';
 
