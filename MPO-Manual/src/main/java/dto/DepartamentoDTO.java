@@ -15,7 +15,7 @@ import java.util.UUID;
 @Builder
 public class DepartamentoDTO {
 
-    private UUID idDepartamentoDTO;
+    private UUID id;
     private String nombre;
     private Programador jefeDepartamento;
     private Double presupuesto;

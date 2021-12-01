@@ -3,14 +3,27 @@ package mapper;
 import dto.DepartamentoDTO;
 import model.Departamento;
 
+import java.util.stream.Collectors;
+
 public class DepartamentoMapper extends BaseMapper<Departamento, DepartamentoDTO> {
     @Override
     public Departamento fromDTO(DepartamentoDTO item) {
-        return null;
+        return Departamento.builder()
+                .id(item.getId())
+                .nombre(item.getNombre())
+                .presupuesto(item.getPresupuesto())
+                .presupuestoAnual(item.getPresupuestoAnual())
+                .build();
     }
 
     @Override
     public DepartamentoDTO toDTO(Departamento item) {
-        return null;
+        return DepartamentoDTO.builder()
+                .id(item.getId())
+                .nombre(item.getNombre())
+                .presupuesto(item.getPresupuesto())
+                .presupuestoAnual(item.getPresupuestoAnual())
+                .build();
+
     }
 }
