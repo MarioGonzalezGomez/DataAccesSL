@@ -10,8 +10,9 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 public class Proyecto {
-    private UUID idProgramador;
     private UUID idProyecto;
+    private String nombre;
+    private UUID idjefeProyecto;
     private Date fechaInicio;
     private Date fechaFin;
 

@@ -1,32 +1,102 @@
 package repository;
 
+import database.DataBaseController;
+import model.Departamento;
+
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
-public class DepartamentoRepository implements CrudRepository {
+public class DepartamentoRepository implements CrudRepository<Departamento, String> {
 
     @Override
-    public List findAll() throws SQLException {
-        return null;
+    public List<Departamento> findAll() throws SQLException {
+        String query = "SELECT *  FROM departamento";
+        DataBaseController db = DataBaseController.getInstance();
+        db.open();
+        ResultSet result = db.select(query).orElseThrow(() -> new SQLException("Error DepartamentoRepository al consultar registros de Departamentos"));
+        ArrayList<Departamento> list = new ArrayList<>();
+        while (result.next()) {
+            list.add(
+                    new Departamento(
+                            UUID.fromString(result.getString("id")),
+                            result.getString("nombre"),
+                            UUID.fromString(result.getString("jefeActual")),
+                            result.getDouble("presupuesto"),
+                            result.getDouble("presupuestoAnual")
+                    )
+            );
+        }
+        db.close();
+        return list;
+    }
+
+
+    @Override
+    public Departamento getById(String ID) throws SQLException {
+        String query = "SELECT * FROM departamento WHERE id = ?";
+        DataBaseController db = DataBaseController.getInstance();
+        db.open();
+        ResultSet result = db.select(query, ID).orElseThrow(() -> new SQLException("Error PostRepository al consultar post con ID " + ID));
+        if (result.first()) {
+            Departamento departamento = new Departamento(
+                    UUID.fromString(result.getString("id")),
+                    result.getString("nombre"),
+                    UUID.fromString(result.getString("jefeActual")),
+                    result.getDouble("presupuesto"),
+                    result.getDouble("presupuestoAnual")
+            );
+            db.close();
+            return departamento;
+        } else
+            throw new SQLException("Error DepartamentoRepository no existe departamento con ID: " + ID);
     }
 
     @Override
-    public Object getById(Long id) throws SQLException {
-        return null;
+    public Departamento save(Departamento departamento) throws SQLException {
+        String query = "INSERT INTO departamento VALUES (?, ?, ?, ?, ?)";
+        DataBaseController db = DataBaseController.getInstance();
+        db.open();
+        ResultSet result = db.insert(query, departamento.getId(), departamento.getNombre(), departamento.getIdJefeDepartamento(),
+                        departamento.getPresupuesto(), departamento.getPresupuestoAnual())
+                .orElseThrow(() -> new SQLException("Error DepartamentoRepository al insertar Departamento"));
+        if (result.first()) {
+            departamento.setId(UUID.fromString(result.getString(1)));
+            db.close();
+            return departamento;
+        } else
+            throw new SQLException("Error DepartamentoRepository al insertar Departamento en BBDD");
+    }
+
+
+    @Override
+    public Departamento update(Departamento departamento) throws SQLException {
+        String query = "UPDATE departamento SET nombre = ?, jefeActual = ?, presupuesto = ?,  " +
+                "presupuestoAnual = ? WHERE id = ?";
+
+        DataBaseController db = DataBaseController.getInstance();
+        db.open();
+        int res = db.update(query, departamento.getNombre(), departamento.getIdJefeDepartamento(),
+                departamento.getPresupuesto(), departamento.getPresupuestoAnual(), departamento.getId());
+        db.close();
+        if (res > 0)
+            return departamento;
+        else
+            throw new SQLException("Error DepartamentoRepository al actualizar departamento con id: " + departamento.getId());
     }
 
     @Override
-    public Object save(Object o) throws SQLException {
-        return null;
-    }
-
-    @Override
-    public Object update(Object o) throws SQLException {
-        return null;
-    }
-
-    @Override
-    public Object delete(Object o) throws SQLException {
-        return null;
+    public Departamento delete(Departamento departamento) throws SQLException {
+        String query = "DELETE FROM departamento WHERE id = ?";
+        DataBaseController db = DataBaseController.getInstance();
+        db.open();
+        int res = db.delete(query, departamento.getId());
+        db.close();
+        if (res > 0)
+            return departamento;
+        else
+            throw new SQLException("Error DepartamentoRepository al eliminar departamento con id: " + departamento.getId());
     }
 }
