@@ -37,7 +37,7 @@ CREATE TABLE `proyecto` (
   `fechaFin` date,
   
   PRIMARY KEY (`nombre`),
-   FOREIGN KEY (`jefeProyecto`) REFERENCES `programadores` (`id`)
+   FOREIGN KEY (`jefeProyecto`) REFERENCES `programador` (`id`)
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla de proyectos';
 
@@ -69,7 +69,6 @@ CREATE TABLE `programador` (
 
  PRIMARY KEY (`id`),
  FOREIGN KEY (`departamento`) REFERENCES `departamento` (`id`),
- FOREIGN KEY (`proyecto`) REFERENCES `proyecto` (`nombre`)
  
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla de programadores';
 
@@ -112,15 +111,15 @@ INSERT INTO `tecnologia` (`id`, `nombre`) VALUES
 
 
 
-DROP TABLE IF EXISTS `programadores_proyectos`;
-CREATE TABLE `programadores_proyectos`
+DROP TABLE IF EXISTS `programador_proyecto`;
+CREATE TABLE `programador_proyecto`
 (
     `id` varchar(36) REFERENCES `proyectos` (`id`) MATCH SIMPLE NOT NULL,
     `proyecto`  varchar(36) REFERENCES `proyectos` (`id`) MATCH SIMPLE NOT NULL,
-    `programador` varchar(36) REFERENCES `programadores` (`id`) MATCH SIMPLE NOT NULL
-)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla de programadores_proyectos';
+    `programador` varchar(36) REFERENCES `programador` (`id`) MATCH SIMPLE NOT NULL
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla de programador_proyecto';
 
-INSERT INTO `programadores_proyectos` (`id`, `proyecto`,`programador`) VALUES
+INSERT INTO `programador_proyecto` (`id`, `proyecto`,`programador`) VALUES
 ('d6ecce95-776d-4615-adcb-8f197fcfce8b', '7f784746-5819-b5e2-ace7-978bcd3a9be1','6374ad58-ac34-4331-8ff1-a33f2f047107'),
 ('edaebb82-b4e4-46b5-bf70-7aabc0b62891', '7f784746-5819-b5e2-ace7-978bcd3a9be1','2ce6a8fb-d9cc-4c5e-94a7-f5739edaf1e6'),
 ('a3f78dc8-739f-4d38-87d0-914ece3c12ea', '7f784746-5819-b543-ace7-978bcd3a9be1','327f9d8b-e42b-4998-8522-b77282c39ddd'),
