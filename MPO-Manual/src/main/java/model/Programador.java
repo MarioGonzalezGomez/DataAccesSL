@@ -1,9 +1,17 @@
 package model;
 
-import java.sql.Date;
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 
+import java.sql.Date;
+import java.util.UUID;
+
+@Data
+@Builder
+@AllArgsConstructor
 public class Programador {
+<<<<<<< HEAD
     private int id;
     private String name;
     private Date fechaAlta;
@@ -107,20 +115,15 @@ public class Programador {
     public void setPassword(String password) {
         this.password = password;
     }
+=======
+    private UUID id;
+    private String nombre;
+    private Date fechaAlta;
+    private String contraseña;
+    private Double salario;
+    private UUID idDepartamento;
+>>>>>>> develop
 
-    @Override
-    public String toString() {
-        return "Programador{" +
-                "name='" + name + '\'' +
-                ", fecha_alta=" + fechaAlta +
-                ", departamento=" + departamento +
-                ", proyectos=" + proyectos +
-                ", issues=" + issues +
-                ", tecnologias_usadas='" + tecnologiasUsadas + '\'' +
-                ", salario=" + salario +
-                ", contraseña='" + password + '\'' +
-                '}';
-    }
 }
 
 

@@ -1,8 +1,20 @@
 package model;
 
-import java.sql.Date;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 
+import java.sql.Date;
+<<<<<<< HEAD
+=======
+import java.util.UUID;
+>>>>>>> develop
+
+@Data
+@Builder
+@AllArgsConstructor
 public class Proyecto {
+<<<<<<< HEAD
     private int id;
     private String nombre;
     private int idJefeProyecto;
@@ -73,11 +85,17 @@ public class Proyecto {
     public String getTecnologias() {
         return tecnologias;
     }
+=======
 
-    public void setTecnologias(String tecnologias) {
-        this.tecnologias = tecnologias;
-    }
+   private UUID idProgramador;
+   private UUID idProyecto;
+   private Date fechaInicio;
+   private Date fechaFin;
 
+>>>>>>> develop
+
+
+<<<<<<< HEAD
     public int getRepositorio() {
         return repositorio;
     }
@@ -86,3 +104,7 @@ public class Proyecto {
         this.repositorio = repositorio;
     }
 }
+=======
+
+}
+>>>>>>> develop
